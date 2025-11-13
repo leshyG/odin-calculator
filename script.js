@@ -5,6 +5,57 @@ let operators = Array.from(document.querySelectorAll(".ops"));
 
 let calculate = document.getElementById("equal");
 let clear = document.getElementById("clear");
+
+let firstOperand = null;
+let secondOperand = null;
+let operation = null;
+let prevOperation = null;
+let equalsUsed = null;
+
+numbers.map(button => button.addEventListener("click", () => {
+    if (operation != null) {
+        displayScreen.textContent = '';
+        prevOperation = operation;
+        operation = null;
+    }
+    displayScreen.textContent += button.textContent;
+}));
+
+operators.map(button => button.addEventListener("click", () => {
+    if (displayScreen.textContent === '') {
+        return;
+    }
+    if (equalsUsed) {
+        secondOperand = null;
+        equalsUsed = false;
+    }
+    if (firstOperand === null) {
+        firstOperand = parseInt(displayScreen.textContent);
+        operation = button.id;
+        return;
+    } else if (operation) {
+        return;
+    } else if (secondOperand === null) {
+        secondOperand = parseInt(displayScreen.textContent);
+        operation = button.id;
+
+        firstOperand = calculateOperation(firstOperand, secondOperand, prevOperation);
+        secondOperand = null;
+        return;
+    }
+    console.log("ERROR?");
+}));
+
+calculate.addEventListener("click", () => {
+    if (firstOperand !== null && secondOperand !== null) {
+        firstOperand = calculateOperation(firstOperand, secondOperand, prevOperation);
+    } else {
+        secondOperand = parseInt(displayScreen.textContent)
+        firstOperand = calculateOperation(firstOperand, secondOperand, prevOperation);
+    }
+    equalsUsed = true;
+});
+
 function add(a, b) {
     console.log(`a: ${a} b:${b}`)
     return a + b;
