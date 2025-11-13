@@ -56,6 +56,15 @@ calculate.addEventListener("click", () => {
     equalsUsed = true;
 });
 
+clear.addEventListener("click", () => {
+    firstOperand = null;
+    secondOperand = null;
+    operation = null;
+    prevOperation = null;
+    equalsUsed = null;
+    displayScreen.textContent = '';
+})
+
 function add(a, b) {
     console.log(`a: ${a} b:${b}`)
     return a + b;
