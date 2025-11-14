@@ -30,13 +30,13 @@ operators.map(button => button.addEventListener("click", () => {
         equalsUsed = false;
     }
     if (firstOperand === null) {
-        firstOperand = parseInt(displayScreen.textContent);
+        firstOperand = parseFloat(displayScreen.textContent);
         operation = button.id;
         return;
     } else if (operation) {
         return;
     } else if (secondOperand === null) {
-        secondOperand = parseInt(displayScreen.textContent);
+        secondOperand = parseFloat(displayScreen.textContent);
         operation = button.id;
 
         firstOperand = calculateOperation(firstOperand, secondOperand, prevOperation);
@@ -50,7 +50,7 @@ calculate.addEventListener("click", () => {
     if (firstOperand !== null && secondOperand !== null) {
         firstOperand = calculateOperation(firstOperand, secondOperand, prevOperation);
     } else {
-        secondOperand = parseInt(displayScreen.textContent)
+        secondOperand = parseFloat(displayScreen.textContent)
         firstOperand = calculateOperation(firstOperand, secondOperand, prevOperation);
     }
     equalsUsed = true;
@@ -101,12 +101,12 @@ function calculateOperation(a, b, id) {
             result = divide(a, b);
             break;
     }
-    if (isNaN(result)) {
+    if (isNaN(result) || !isFinite(result)) {
         alert("ERROR");
         displayScreen.textContent = ''
         firstOperand = null;
         secondOperand = null;
-        return null;   
+        return null;
     };
     displayScreen.textContent = result;
     return result;
