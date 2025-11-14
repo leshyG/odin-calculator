@@ -101,6 +101,13 @@ function calculateOperation(a, b, id) {
             result = divide(a, b);
             break;
     }
+    if (isNaN(result)) {
+        alert("ERROR");
+        displayScreen.textContent = ''
+        firstOperand = null;
+        secondOperand = null;
+        return null;   
+    };
     displayScreen.textContent = result;
     return result;
 }
